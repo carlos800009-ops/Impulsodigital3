@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Painel — Impulso Digital</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner container">
+      <div class="brand">
+        <svg width="30" height="30" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="46" height="46" rx="12" fill="#0066FF"/>
+          <path d="M13 30L20 15L23 24L33 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33" cy="12" r="2.6" fill="white"/>
+        </svg>
+        <span>Impulso Digital</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="live-indicator" id="live-indicator"><i class="fa-solid fa-circle"></i> Ao vivo</span>
+        <button class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
+        <button class="btn btn-ghost" id="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container dashboard-main">
+    <div class="dashboard-greeting">
+      <h1 id="greeting">Olá, <span class="skeleton" style="display:inline-block;width:100px;height:22px;vertical-align:middle;"></span></h1>
+      <p id="status-line" class="dashboard-sub"></p>
+    </div>
+
+    <div id="cards-grid" class="cards-grid">
+      <!-- Cards injetados via JS -->
+    </div>
+
+    <div id="empty-state" class="empty-state card" hidden>
+      <i class="fa-solid fa-inbox"></i>
+      <h3>Nenhum serviço ativo no momento</h3>
+      <p>Fale com seu consultor Impulso Digital para ativar sua divulgação.</p>
+    </div>
+  </main>
+
+  <template id="tpl-card-grupos">
+    <section class="service-card card theme-green">
+      <div class="service-card-header">
+        <div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div>
+        <div>
+          <h2>Divulgação em Grupos</h2>
+          <span class="service-tag">Envio automatizado em grupos</span>
+        </div>
+      </div>
+      <div class="service-metric">
+        <span class="metric-value" data-counter data-current="0">0</span>
+        <span class="metric-of">/ <span data-meta>0</span> grupos</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" data-progress></div></div>
+      <div class="service-footer">
+        <div class="footer-stat">
+          <i class="fa-solid fa-arrow-pointer"></i>
+          <span><strong data-cliques data-current="0">0</strong> cliques gerados</span>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-card-privado">
+    <section class="service-card card theme-purple">
+      <div class="service-card-header">
+        <div class="service-icon"><i class="fa-solid fa-comments"></i></div>
+        <div>
+          <h2>Prospecção no Privado</h2>
+          <span class="service-tag">Mensagens diretas personalizadas</span>
+        </div>
+      </div>
+      <div class="service-metric">
+        <span class="metric-value" data-counter data-current="0">0</span>
+        <span class="metric-of">mensagens enviadas</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" data-progress></div></div>
+      <div class="service-footer">
+        <div class="footer-stat">
+          <i class="fa-solid fa-arrow-pointer"></i>
+          <span><strong data-cliques data-current="0">0</strong> cliques</span>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-card-trafego">
+    <section class="service-card card theme-blue">
+      <div class="service-card-header">
+        <div class="service-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <div>
+          <h2>Tráfego Pago</h2>
+          <span class="service-tag">Anúncios impulsionados</span>
+        </div>
+      </div>
+      <div class="ads-badges" data-ads-badges></div>
+      <div class="service-footer service-footer-solo">
+        <div class="footer-stat footer-stat-big">
+          <i class="fa-solid fa-arrow-pointer"></i>
+          <span><strong data-cliques data-current="0">0</strong> cliques</span>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

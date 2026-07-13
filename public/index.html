@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impulso Digital — Painel de Acompanhamento</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <button class="theme-toggle landing-theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
+
+  <main class="landing">
+    <div class="landing-grid" aria-hidden="true"></div>
+
+    <div class="landing-content">
+      <div class="landing-logo">
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="46" height="46" rx="12" fill="#0066FF"/>
+          <path d="M13 30L20 15L23 24L33 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33" cy="12" r="2.6" fill="white"/>
+        </svg>
+      </div>
+
+      <h1 class="landing-title">Impulso <span>Digital</span></h1>
+
+      <p class="landing-subtitle">Bem-vindo ao painel de acompanhamento da sua divulgação.</p>
+
+      <a href="login.html" class="btn btn-primary landing-cta">
+        ACOMPANHAR DIVULGAÇÃO
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+
+      <a href="admin/login.html" class="landing-admin-link">Acesso administrativo</a>
+    </div>
+
+    <div class="landing-pulse" aria-hidden="true">
+      <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+        <polyline class="pulse-line" points="0,40 80,40 100,10 120,70 140,40 260,40 280,15 300,65 320,40 600,40" />
+      </svg>
+    </div>
+  </main>
+
+  <script src="js/ui.js"></script>
+</body>
+</html>

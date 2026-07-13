@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrar — Impulso Digital</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <button class="theme-toggle auth-theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
+
+  <main class="auth-screen">
+    <div class="auth-card card">
+      <a href="index.html" class="auth-back"><i class="fa-solid fa-arrow-left"></i> Início</a>
+
+      <div class="auth-logo">
+        <svg width="38" height="38" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="46" height="46" rx="12" fill="#0066FF"/>
+          <path d="M13 30L20 15L23 24L33 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33" cy="12" r="2.6" fill="white"/>
+        </svg>
+      </div>
+
+      <h1>Acompanhar divulgação</h1>
+      <p class="auth-desc">Digite o número de telefone cadastrado para acessar seu painel.</p>
+
+      <form id="login-form">
+        <label for="telefone" class="visually-hidden">Telefone</label>
+        <div class="phone-input">
+          <i class="fa-solid fa-phone"></i>
+          <input
+            type="tel"
+            id="telefone"
+            name="telefone"
+            placeholder="62 99333-4430"
+            inputmode="numeric"
+            autocomplete="tel"
+            required
+          />
+        </div>
+        <p id="login-error" class="auth-error" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+          Entrar <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/ui.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

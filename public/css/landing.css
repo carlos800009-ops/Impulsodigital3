@@ -1,0 +1,112 @@
+.landing {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 24px;
+}
+
+.landing-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 72%);
+  opacity: .6;
+}
+
+.landing-theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 5;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 520px;
+  animation: rise .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.landing-logo {
+  margin-bottom: 22px;
+  filter: drop-shadow(0 10px 30px var(--blue-glow));
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.landing-title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 7vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+.landing-title span { color: var(--blue); }
+
+.landing-subtitle {
+  color: var(--text-dim);
+  font-size: 16.5px;
+  line-height: 1.6;
+  margin: 0 0 36px;
+  max-width: 380px;
+}
+
+.landing-cta {
+  font-size: 15px;
+  padding: 17px 34px;
+  letter-spacing: 0.04em;
+}
+
+.landing-admin-link {
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--text-faint);
+  transition: color .2s ease;
+}
+.landing-admin-link:hover { color: var(--blue); }
+
+.landing-pulse {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  opacity: .5;
+  z-index: 1;
+}
+.landing-pulse svg { width: 100%; height: 100%; }
+.pulse-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.5;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-pulse 3.2s ease-in-out infinite;
+}
+@keyframes draw-pulse {
+  0% { stroke-dashoffset: 1000; }
+  60% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1000; }
+}
+
+@media (max-width: 480px) {
+  .landing-subtitle { font-size: 15px; }
+}

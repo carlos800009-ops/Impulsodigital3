@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo — Impulso Digital</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body class="admin-body">
+
+  <div class="admin-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <svg width="28" height="28" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="46" height="46" rx="12" fill="#0066FF"/>
+          <path d="M13 30L20 15L23 24L33 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33" cy="12" r="2.6" fill="white"/>
+        </svg>
+        <span>Impulso Digital</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</button>
+        <button class="nav-item" data-view="clientes"><i class="fa-solid fa-users"></i> Clientes</button>
+        <button class="nav-item" data-view="criar"><i class="fa-solid fa-user-plus"></i> Criar acesso</button>
+        <button class="nav-item" data-view="relatorios"><i class="fa-solid fa-file-export"></i> Relatórios</button>
+        <button class="nav-item" data-view="config"><i class="fa-solid fa-gear"></i> Configurações</button>
+      </nav>
+
+      <button class="sidebar-logout" id="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+    </aside>
+
+    <!-- Conteúdo -->
+    <div class="admin-content">
+      <header class="admin-topbar">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
+        <h1 id="view-title">Dashboard</h1>
+        <button class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
+      </header>
+
+      <main class="admin-main">
+
+        <!-- VIEW: Dashboard -->
+        <section class="view" id="view-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card card">
+              <span class="stat-label">Clientes</span>
+              <span class="stat-value" data-counter data-current="0" id="stat-total">0</span>
+              <span class="stat-icon"><i class="fa-solid fa-users"></i></span>
+            </div>
+            <div class="stat-card card">
+              <span class="stat-label">Ativos</span>
+              <span class="stat-value accent-green" data-counter data-current="0" id="stat-ativos">0</span>
+              <span class="stat-icon accent-green"><i class="fa-solid fa-bolt"></i></span>
+            </div>
+            <div class="stat-card card">
+              <span class="stat-label">Finalizados</span>
+              <span class="stat-value accent-purple" data-counter data-current="0" id="stat-finalizados">0</span>
+              <span class="stat-icon accent-purple"><i class="fa-solid fa-flag-checkered"></i></span>
+            </div>
+            <div class="stat-card card">
+              <span class="stat-label">Total de divulgações</span>
+              <span class="stat-value accent-blue" data-counter data-current="0" id="stat-divulgacoes">0</span>
+              <span class="stat-icon accent-blue"><i class="fa-solid fa-paper-plane"></i></span>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card chart-card">
+              <h3>Crescimento de clientes</h3>
+              <canvas id="chart-crescimento" height="220"></canvas>
+            </div>
+            <div class="card chart-card">
+              <h3>Cliques por serviço</h3>
+              <canvas id="chart-cliques" height="220"></canvas>
+            </div>
+          </div>
+
+          <div class="card table-card">
+            <h3>Últimos acessos</h3>
+            <table class="data-table" id="tabela-acessos">
+              <thead><tr><th>Cliente</th><th>Último acesso</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- VIEW: Clientes -->
+        <section class="view" id="view-clientes" hidden>
+          <div class="toolbar">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="busca-cliente" placeholder="Buscar por nome ou telefone..." />
+            </div>
+            <select id="filtro-status" class="select-input">
+              <option value="">Todos os status</option>
+              <option value="ativo">Ativo</option>
+              <option value="pausado">Pausado</option>
+              <option value="finalizado">Finalizado</option>
+            </select>
+            <button class="btn btn-ghost" id="btn-export-excel"><i class="fa-solid fa-file-excel"></i> Excel</button>
+            <button class="btn btn-ghost" id="btn-export-pdf"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            <button class="btn btn-primary" id="btn-ir-criar"><i class="fa-solid fa-plus"></i> Novo acesso</button>
+          </div>
+
+          <div class="card table-card">
+            <table class="data-table" id="tabela-clientes">
+              <thead>
+                <tr>
+                  <th>Nome</th><th>Telefone</th><th>Planos</th><th>Status</th><th>Criado em</th><th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- VIEW: Criar acesso -->
+        <section class="view" id="view-criar" hidden>
+          <div class="card form-card">
+            <h3>Criar novo acesso de cliente</h3>
+            <form id="form-criar">
+              <div class="field-group">
+                <label for="criar-nome">Nome</label>
+                <div class="text-input"><i class="fa-solid fa-user"></i><input type="text" id="criar-nome" required /></div>
+              </div>
+              <div class="field-group">
+                <label for="criar-telefone">Telefone</label>
+                <div class="text-input"><i class="fa-solid fa-phone"></i><input type="tel" id="criar-telefone" placeholder="62993334430" required /></div>
+              </div>
+              <div class="field-group">
+                <label>Plano contratado</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-card"><input type="checkbox" value="grupos" name="plano" /> <i class="fa-solid fa-bullhorn"></i> Divulgação em Grupos</label>
+                  <label class="checkbox-card"><input type="checkbox" value="privado" name="plano" /> <i class="fa-solid fa-comments"></i> Prospecção no Privado</label>
+                  <label class="checkbox-card"><input type="checkbox" value="trafego" name="plano" /> <i class="fa-solid fa-bullseye"></i> Tráfego Pago</label>
+                  <label class="checkbox-card"><input type="checkbox" value="completo" name="plano" /> <i class="fa-solid fa-star"></i> Plano Completo</label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- VIEW: Relatórios -->
+        <section class="view" id="view-relatorios" hidden>
+          <div class="card form-card">
+            <h3>Exportar relatórios</h3>
+            <p class="muted">Baixe a base completa de clientes em Excel ou PDF, com métricas de todos os serviços.</p>
+            <div class="report-actions">
+              <button class="btn btn-primary" id="btn-report-excel"><i class="fa-solid fa-file-excel"></i> Baixar Excel</button>
+              <button class="btn btn-ghost" id="btn-report-pdf"><i class="fa-solid fa-file-pdf"></i> Baixar PDF</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: Configurações -->
+        <section class="view" id="view-config" hidden>
+          <div class="card form-card">
+            <h3>Credenciais do administrador</h3>
+            <p class="muted">Altere o e-mail e/ou senha de acesso ao painel administrativo. Por segurança, é necessário confirmar a senha atual.</p>
+            <form id="form-config">
+              <div class="field-group">
+                <label for="config-email">Novo e-mail (opcional)</label>
+                <div class="text-input"><i class="fa-solid fa-envelope"></i><input type="email" id="config-email" placeholder="Deixe em branco para não alterar" /></div>
+              </div>
+              <div class="field-group">
+                <label for="config-nova-senha">Nova senha (opcional)</label>
+                <div class="text-input"><i class="fa-solid fa-key"></i><input type="password" id="config-nova-senha" placeholder="Mínimo 6 caracteres" /></div>
+              </div>
+              <div class="field-group">
+                <label for="config-senha-atual">Senha atual (obrigatória para confirmar)</label>
+                <div class="text-input"><i class="fa-solid fa-lock"></i><input type="password" id="config-senha-atual" required /></div>
+              </div>
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar alterações</button>
+            </form>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Painel lateral de edição de cliente -->
+  <div class="drawer-backdrop" id="drawer-backdrop">
+    <aside class="drawer" id="drawer">
+      <div class="drawer-header">
+        <h3>Editar cliente</h3>
+        <button class="drawer-close" id="drawer-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="form-editar" class="drawer-body">
+        <input type="hidden" id="editar-id" />
+
+        <div class="field-group">
+          <label for="editar-nome">Nome</label>
+          <div class="text-input"><i class="fa-solid fa-user"></i><input type="text" id="editar-nome" required /></div>
+        </div>
+        <div class="field-group">
+          <label for="editar-telefone">Telefone</label>
+          <div class="text-input"><i class="fa-solid fa-phone"></i><input type="tel" id="editar-telefone" required /></div>
+        </div>
+        <div class="field-group">
+          <label>Plano</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-card"><input type="checkbox" value="grupos" name="editar-plano" /> <i class="fa-solid fa-bullhorn"></i> Grupos</label>
+            <label class="checkbox-card"><input type="checkbox" value="privado" name="editar-plano" /> <i class="fa-solid fa-comments"></i> Privado</label>
+            <label class="checkbox-card"><input type="checkbox" value="trafego" name="editar-plano" /> <i class="fa-solid fa-bullseye"></i> Tráfego</label>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="editar-status">Status</label>
+          <select id="editar-status" class="select-input full">
+            <option value="ativo">Ativo</option>
+            <option value="pausado">Pausado</option>
+            <option value="finalizado">Finalizado</option>
+          </select>
+        </div>
+
+        <hr class="drawer-divider" />
+        <h4>Divulgação em Grupos</h4>
+        <div class="grid-2">
+          <div class="field-group"><label>Grupos enviados</label><div class="text-input"><input type="number" id="editar-grupos-enviados" min="0" /></div></div>
+          <div class="field-group"><label>Meta de grupos</label><div class="text-input"><input type="number" id="editar-grupos-meta" min="0" /></div></div>
+        </div>
+        <div class="field-group"><label>Cliques (grupos)</label><div class="text-input"><input type="number" id="editar-grupos-cliques" min="0" /></div></div>
+
+        <hr class="drawer-divider" />
+        <h4>Prospecção no Privado</h4>
+        <div class="grid-2">
+          <div class="field-group"><label>Mensagens enviadas</label><div class="text-input"><input type="number" id="editar-privado-enviados" min="0" /></div></div>
+          <div class="field-group"><label>Meta de mensagens</label><div class="text-input"><input type="number" id="editar-privado-meta" min="0" /></div></div>
+        </div>
+        <div class="field-group"><label>Cliques (privado)</label><div class="text-input"><input type="number" id="editar-privado-cliques" min="0" /></div></div>
+
+        <hr class="drawer-divider" />
+        <h4>Tráfego Pago</h4>
+        <div class="field-group"><label>Cliques (tráfego)</label><div class="text-input"><input type="number" id="editar-trafego-cliques" min="0" /></div></div>
+        <div class="field-group">
+          <label>Anúncios publicados em</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-card"><input type="checkbox" id="ad-facebook" /> <i class="fa-brands fa-facebook"></i> Facebook</label>
+            <label class="checkbox-card"><input type="checkbox" id="ad-instagram" /> <i class="fa-brands fa-instagram"></i> Instagram</label>
+            <label class="checkbox-card"><input type="checkbox" id="ad-linkedin" /> <i class="fa-brands fa-linkedin"></i> LinkedIn</label>
+            <label class="checkbox-card"><input type="checkbox" id="ad-google" /> <i class="fa-brands fa-google"></i> Google</label>
+          </div>
+        </div>
+
+        <div class="drawer-actions">
+          <button type="button" class="btn btn-danger" id="btn-excluir-cliente"><i class="fa-solid fa-trash"></i> Excluir cliente</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar alterações</button>
+        </div>
+      </form>
+    </aside>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+.auth-screen {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 5;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 34px;
+  position: relative;
+  animation: rise .55s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-faint);
+  margin-bottom: 22px;
+  transition: color .2s ease;
+}
+.auth-back:hover { color: var(--blue); }
+
+.auth-logo { margin-bottom: 18px; }
+
+.auth-card h1 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.auth-desc {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 26px;
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.phone-input:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-soft);
+}
+.phone-input i { color: var(--text-faint); }
+.phone-input input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  width: 100%;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.phone-input input::placeholder { color: var(--text-faint); }
+
+.auth-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 12px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.auth-error::before {
+  content: '\f06a';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+#login-form .btn { margin-top: 20px; }
+
+/* Formulário de login do admin (email + senha) */
+.field-group { margin-bottom: 16px; }
+.field-group label {
+  display: block;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.text-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 13px 15px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.text-input:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-soft);
+}
+.text-input i { color: var(--text-faint); width: 16px; text-align: center; }
+.text-input input {
+  border: none; outline: none; background: transparent;
+  color: var(--text); font-size: 14.5px; width: 100%;
+}
